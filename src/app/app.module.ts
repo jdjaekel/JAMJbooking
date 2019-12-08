@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { EmployeelistComponent } from './employeelist/employeelist.component';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 import {MatFormFieldModule} from '@angular/material/form-field'; 
@@ -23,20 +24,25 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import {MatCardModule} from '@angular/material/card';
 import { BookingTableComponent } from './booking-table/booking-table.component'; 
+import { FormsModule } from '@angular/forms';
+import { MatTableModule} from '@angular/material/table';
+import { BookingStepperComponent } from './booking-stepper/booking-stepper.component'; 
+import { ServerService } from './server.service';
 
 
-import {MatTableModule} from '@angular/material/table'; 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeelistComponent,
-    BookingTableComponent
+    BookingTableComponent,
+    BookingStepperComponent
      
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      { path: '', component: EmployeelistComponent }
+      { path: '', component: BookingStepperComponent },
+      { path: 'dashboard', component: BookingTableComponent}
     ]),
     BrowserAnimationsModule,
     MatButtonModule,
@@ -50,11 +56,14 @@ import {MatTableModule} from '@angular/material/table';
     MatStepperModule,
     ReactiveFormsModule,
     MatTableModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    MatChipsModule
+    
     
   ],
   exports:[BookingTableComponent],
-  providers: [MatDatepickerModule],
+  providers: [MatDatepickerModule, ServerService], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

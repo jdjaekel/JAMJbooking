@@ -1,20 +1,28 @@
+<mat-form-field>
+    <mat-label>Which Barber?</mat-label>
+    <mat-select (selectionChange)="sortOpenApps($event.value)">
+      <mat-option *ngFor="let barber of history" [value]="barber">
+         {{barber}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-<div *ngFor="let employee of employees">
+
+<div *ngFor="let timeslot of selectedopenapps; let i = index;">
 
   <h3>
-    <mat-card class="name-card">{{ employee.name }}</mat-card>
+    <mat-card class="name-card" *ngIf="i === 0">{{ timeslot.employee }}</mat-card>
+    <mat-card class="name-card" *ngIf="i > 0 && !history.includes(timeslot.employee)">{{ timeslot.employee }}</mat-card>
       
     
   </h3>
 
-  <p>
-    Haircut Price: {{ employee.priceHaircut}}
-  </p>
 
   <div class="time-buttons">
-  <button mat-raised-button color="primary" *ngFor ="let time of employee.times">
-    {{ time }}
-  </button>
+      <mat-chip-list>
+          <mat-chip (click)="outputDate.emit(timeslot.time)"> {{ timeslot.time }}</mat-chip>
+      </mat-chip-list>
+  
   </div>
 
 </div>

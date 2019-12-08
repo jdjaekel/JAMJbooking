@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ServerService } from '../server.service';
 import { FormBuilder } from '@angular/forms';
 
@@ -10,11 +10,13 @@ import { FormBuilder } from '@angular/forms';
 })
 export class BookingTableComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'employee', 'firstname', 'date', 'time'];
+  displayedColumns: string[] = ['id', 'employee', 'firstname', 'date', 'time', 'cancel'];
   
   bookings: any[] = [];
+ 
+  cancelSuccess: boolean;
 
-  constructor(private fb: FormBuilder, private server: ServerService) { }
+  constructor(private fb: FormBuilder, private server: ServerService, private changeDetectorRefs: ChangeDetectorRef) { }
 
   ngOnInit() {
     
@@ -27,6 +29,7 @@ export class BookingTableComponent implements OnInit {
       this.bookings = response;
       console.log('Response', this.bookings);
       
+      
 
 
 
@@ -34,6 +37,28 @@ export class BookingTableComponent implements OnInit {
 
 
   }
+
   
+  
+
+  private deleteBooking(id: string)
+  {
+    this.server.deleteBooking(id).then(() => {
+      console.log("Yeet");
+      this.getBookings();
+      this.cancelSuccess = true;
+      
+    })
+    
+
+  }
+
+  refresh() {
+    this.server.getBookings().then((response: any) => {
+      this.bookings = response;
+      console.log('Response', this.bookings);
+    })
+    
+  }
 
 }
