@@ -23,7 +23,7 @@ export class BookingTableComponent implements OnInit {
     this.getBookings();
   }
 
-  private getBookings()
+  getBookings()
   {
     this.server.getBookings().then((response: any) => {
       this.bookings = response;
@@ -41,7 +41,7 @@ export class BookingTableComponent implements OnInit {
   
   
 
-  private deleteBooking(id: string)
+  deleteBooking(id: string)
   {
     this.server.deleteBooking(id).then(() => {
       console.log("Yeet");

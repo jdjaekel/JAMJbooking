@@ -57,7 +57,7 @@ export class BookingStepperComponent implements OnInit {
 
   
 
-  private getOpenApp()
+  getOpenApp()
   {
     this.dateVal = this.date.value.toISOString().substring(0, 10);
     console.log("Date wrong?", this.dateVal);
@@ -86,7 +86,7 @@ export class BookingStepperComponent implements OnInit {
       console.log("Big ol error.");
     });;
   }
-  private addBooking(){
+  addBooking(){
 
     
    

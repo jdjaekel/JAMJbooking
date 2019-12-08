@@ -5,7 +5,7 @@
   </mat-toolbar>
 
 <mat-horizontal-stepper [linear]="false" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
+    <mat-step >
       <form>
         <ng-template matStepLabel>Fill out your info</ng-template>
         
@@ -25,7 +25,7 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
+    <mat-step >
       <form >
         <ng-template matStepLabel>Choose Date</ng-template>
         <mat-form-field>
@@ -34,7 +34,7 @@
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <div>
-          <button mat-button matStepperPrevious (click)="secondFormGroup.reset()">Back</button>
+          <button mat-button matStepperPrevious >Back</button>
           <button mat-button (click)="getOpenApp()" matStepperNext>Next</button>
         </div>
       </form>
