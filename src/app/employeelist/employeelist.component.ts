@@ -14,27 +14,41 @@ export class EmployeelistComponent{
   history = [];
   times = [];
   value: string;
+  isDisplay = false;
   
 
-  //@Input() openapps: any[];
+
   @Input()
   set openApps(val: any){
     
     this.openapps = val;
-
-    this.openapps.forEach(element => {
-      
-      if(!this.history.includes(element.employee))
-      {
-        this.history.push(element.employee)
-       
-      }
+    this.getBarbers(this.openapps);
     
+    //console.log(this.history);
+  }
+
+  getBarbers(openapps: any)
+  {
+    //console.log('openapps recieved',  openapps); 
+    this.history = [];
+    if(openapps != null){
+      openapps.forEach(element => {
       
-    });
+        if(!this.history.includes(element.employee))
+        {
+          this.history.push(element.employee)
+         
+        }
+      
+        
+      });
+
+    }
     console.log(this.history);
+    this.isDisplay = false;
 
   }
+
   @Output() outputBarber: EventEmitter<any> = new EventEmitter(); 
   @Output() outputDate: EventEmitter<any> = new EventEmitter(); 
 
@@ -54,28 +68,6 @@ export class EmployeelistComponent{
     console.log("Sorted?:", this.selectedopenapps);
 
   }
-  
-  /*ngOnInit(): void {
-    this.openapps.forEach(element => {
-      console.log(element.employee);
-      if(!this.history.includes(element.employee))
-      {
-        this.history.push(element)
-      }
-      
-    });
-    console.log("History", this.history);
-  }
-*/
- 
-  
-
-
-  
-  
-  
-  
-
 
   
 

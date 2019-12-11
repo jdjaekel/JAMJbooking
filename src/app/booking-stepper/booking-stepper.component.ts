@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ServerService } from '../server.service';
 import { booking } from 'src/booking';
+import { EmployeelistComponent } from '../employeelist/employeelist.component';
 
 @Component({
   selector: 'app-booking-stepper',
@@ -10,7 +11,7 @@ import { booking } from 'src/booking';
 })
 export class BookingStepperComponent implements OnInit {
 
-  
+  @ViewChild(EmployeelistComponent, {static: false}) child:EmployeelistComponent;
   isUserAdmin: boolean;
   openapps: any[] = [];
   firstname: string;
@@ -20,6 +21,7 @@ export class BookingStepperComponent implements OnInit {
   barber: string;
   selectedTime: string;
   isTimeSelected = false;
+  isDateSelected = false;
 
   dispData()
   {
@@ -51,7 +53,7 @@ export class BookingStepperComponent implements OnInit {
   }
   ngOnInit() {
     
-
+    
     
   }
 
@@ -64,9 +66,11 @@ export class BookingStepperComponent implements OnInit {
     
     this.server.getOpenApps(this.dateVal).then((response: any) =>{
       this.openapps = response;
-     
+      console.log("Openapps being sent", this.openapps);
+      this.child.getBarbers(this.openapps);
 
     })
+    
   }
   removeOpenApp()
   {
@@ -95,12 +99,11 @@ export class BookingStepperComponent implements OnInit {
         this.dateVal, this.selectedTime
         ).subscribe((createdBooking: booking) => {
           
-          this.barber = '';
-          this.firstname = '';
-          this.lastname = '';
-          this.dateVal = '';
-          this.selectedTime = '';
-          this.email ='';
+          this.barber = 'Booked';
+          this.firstname = 'Booked';
+          this.lastname = 'Booked';
+          
+          this.email ='Booked';
           const appointmentDate = new Date(createdBooking.date).toDateString();
           
         },

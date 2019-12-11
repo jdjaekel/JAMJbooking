@@ -1,6 +1,6 @@
 <mat-form-field>
     <mat-label>Which Barber?</mat-label>
-    <mat-select (selectionChange)="sortOpenApps($event.value)">
+    <mat-select (selectionChange)="sortOpenApps($event.value); isDisplay = true;">
       <mat-option *ngFor="let barber of history" [value]="barber">
          {{barber}}
       </mat-option>
@@ -8,17 +8,17 @@
   </mat-form-field>
 
 
-<div *ngFor="let timeslot of selectedopenapps; let i = index;">
+<div  *ngFor="let timeslot of selectedopenapps; let i = index;">
 
   <h3>
-    <mat-card class="name-card" *ngIf="i === 0">{{ timeslot.employee }}</mat-card>
-    <mat-card class="name-card" *ngIf="i > 0 && !history.includes(timeslot.employee)">{{ timeslot.employee }}</mat-card>
+    <mat-card class="name-card" *ngIf="i === 0 && isDisplay">{{ timeslot.employee }}</mat-card>
+    <mat-card class="name-card" *ngIf="i > 0 && !history.includes(timeslot.employee) && isDisplay">{{ timeslot.employee }}</mat-card>
       
     
   </h3>
 
 
-  <div class="time-buttons">
+  <div *ngIf="isDisplay" class="time-buttons">
       <mat-chip-list>
           <mat-chip (click)="outputDate.emit(timeslot.time)"> {{ timeslot.time }}</mat-chip>
       </mat-chip-list>
